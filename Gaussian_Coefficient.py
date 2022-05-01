@@ -8,7 +8,7 @@ class GaussianCoefficient:
         self.g_1_0 = []
         self.g_1_1 = []
         self.h_1_1 = []
-        self.Gaussian =[]
+        self.Gaussian = []
         self.index_of_year = 0
 
     def get_years(self) -> list:
