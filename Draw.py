@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 
-def Draw_Magnetic_Field(Latitude, Longitude, Variable, year: int, name: str) -> None:
+def Draw_Magnetic_Field(Latitude, Longitude, Variable, name: str, year: int = 2005) -> None:
     fig = plt.figure()
     m = Basemap()
     m.drawcoastlines()
