@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class GaussianCoefficient:
     """Get the Coefficient of the Gaussian of earth magnetic field."""
 
@@ -47,7 +48,7 @@ class GaussianCoefficient:
         return self.index_of_year
 
 
-def is_number(s:str) -> bool:
+def is_number(s: str) -> bool:
     """Decide whether the input object is a number. Even it is not integer."""
 
     """
