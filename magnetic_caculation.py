@@ -2,6 +2,10 @@ import numpy as np
 from scipy import special
 
 
+mu_0 = 4 * np.pi * 1e-7
+R = 6371e3
+
+
 def Generate_Theta_Phi(num_of_dots: int = 100) -> np.ndarray:
     """Generate the latitude and longitude value of earth and expand to 2-D."""
 
@@ -30,9 +34,6 @@ def Caculate_Magnetic_Potential(g_1_0: float, g_1_1: float, h_1_1: float,
                                 a_1_0: np.ndarray, a_1_1: np.ndarray, b_1_1: np.ndarray) -> np.ndarray:
     """Caculate the magnetic potential(use International System of Units)."""
 
-    mu_0 = 4 * np.pi * 1e-7
-    R = 6371e3
-
     # I only caculate the 1st order of magnetic potential(geocentric magnetic dipole).
     w_1 = R / mu_0 * (g_1_0 * a_1_0 + g_1_1 * a_1_1 + h_1_1 * b_1_1)
 
@@ -41,9 +42,6 @@ def Caculate_Magnetic_Potential(g_1_0: float, g_1_1: float, h_1_1: float,
 
 def Caculate_Magnetic_Moment(g_1_0: float, g_1_1: float, h_1_1: float) -> float:
     """Caculate the magnetic moment(use International System of Units)."""
-
-    mu_0 = 4 * np.pi * 1e-7
-    R = 6371e3
 
     # I only caculate magnetic moment in the 1st order approximation(geocentric magnetic dipole).
     M_x = (4 * np.pi / mu_0) * R ** 3 * g_1_1
@@ -77,10 +75,11 @@ def Caculate_Polar_Angle(g_1_0: float, g_1_1: float, h_1_1: float) -> float:
 
     """I only caculate the polar angle of magnetic field in the 1st order approximation
     (geocentric magnetic dipole)."""
-    theta_0 = np.arctan(np.sqrt(g_1_1 ** 2 + h_1_1 ** 2) / np.abs(g_F1_0))
-    lambda_0 = np.arctan(h_1_1 / g_1_1)
+    theta_0_DEG = np.arctan2(
+        np.sqrt(g_1_1 ** 2 + h_1_1 ** 2), np.abs(g_1_0)) * 180 / np.pi
+    lambda_0_DEG = np.arctan2(h_1_1, g_1_1) * 180 / np.pi
 
-    return theta_0, lambda_0
+    return theta_0_DEG, lambda_0_DEG
 
 
 def Turn_RAD_to_Degree(Latitude: np.ndarray, Longitude: np.ndarray) -> np.ndarray:
