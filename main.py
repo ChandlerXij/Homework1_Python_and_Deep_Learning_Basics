@@ -2,13 +2,15 @@ from spider import Spider
 from Gaussian_Coefficient import *
 from magnetic_caculation import *
 from ImageDownload_of_Magnetic_Field import Magnetic_ImageDownload
+from Draw_Magnetic import Draw_MF_of_Earth
+
+year = 2005
 
 soup = Spider('https://wdc.kugi.kyoto-u.ac.jp/igrf/coef/igrf13coeffs.html')
 
 Table_Content = soup.select('tr')
 
-
-Gauss = GaussianCoefficient(Table_Content, 1995)
+Gauss = GaussianCoefficient(Table_Content, year)
 
 years = Gauss.get_years()
 try:
@@ -30,6 +32,7 @@ h_1_1 = Gaussian[3][index_of_year]
 
 
 Latitude, Longitude = Generate_Theta_Phi(100)
+Latitude_Degree, Longitude_Degree = Turn_RAD_to_Degree(Latitude, Longitude)
 
 a_1_0, a_1_1, b_1_1 = Caculate_Spherical_Harmonics(Latitude, Longitude)
 
@@ -41,7 +44,8 @@ X, Y, Z, T = Caculate_Magnetic_X_Y_Z(g_1_0, g_1_1, h_1_1, Latitude, Longitude)
 
 theta_0, lambda_0 = Caculate_Polar_Angle(g_1_0, g_1_1, h_1_1)
 
-Magnetic_ImageDownload()
+# Draw_MF_of_Earth(Latitude_Degree, Longitude_Degree, w_1, X, Y, Z, T, year)
 
+# Magnetic_ImageDownload()
 
 print("Over!")
