@@ -1,3 +1,5 @@
+import numpy as np
+
 class GaussianCoefficient:
     """Get the Coefficient of the Gaussian of earth magnetic field."""
 
@@ -31,22 +33,21 @@ class GaussianCoefficient:
         self.h_1_1 = get_years_or_gaussian(self.Table, 4, 1.0, 1.0)
         return self.h_1_1
 
-    def get_Gaussian(self):
+    def get_Gaussian(self) -> np.ndarray:
         """Combine years and Gaussians."""
-        import numpy as np
         self.Gaussian = np.array(
             [self.years, self.g_1_0, self.g_1_1, self.h_1_1])
         return self.Gaussian
 
     def get_index_of_year(self) -> int:
         """Index the targeted year in the list of years."""
-        years:list = self.years
-        year:int = self.year
+        years = self.years
+        year = self.year
         self.index_of_year = years.index(year)
         return self.index_of_year
 
 
-def is_number(s: str) -> bool:
+def is_number(s:str) -> bool:
     """Decide whether the input object is a number. Even it is not integer."""
 
     """
